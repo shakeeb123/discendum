@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import json
-import datetime
 
 #API Features
 def check_email():
@@ -10,7 +9,6 @@ def check_email():
 	data = json.loads(request.body.read())
 	emails = data["email"]
 	email_list = []
-	check_list = {}
 	response = {}
 	for email in emails:
 		email_list.append(str(email))
@@ -19,7 +17,6 @@ def check_email():
 
 	for item in email_list:
 		for email in existing_emails:
-			print email.email_address
 			if item == email.email_address and email.confirmed == 1:
 				query = db(db.user_email.user_id == email.user_id).select(orderby = ~db.user_email.login_time)
 				for entry in query:
